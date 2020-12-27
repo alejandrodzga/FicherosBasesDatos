@@ -1,0 +1,26 @@
+WITH A1 AS( --Numero de comentarios de cada director
+SELECT
+    comments.director,
+    COUNT(*) AS DIR_COM
+FROM
+    comments
+GROUP BY 
+	comments.director
+ORDER BY
+	DIR_COM
+),
+A2 AS( --Numero de comentarios totales
+SELECT
+    COUNT(*) AS DIR_COM2
+FROM
+    comments
+),
+A3 AS( --Division entre ambos para obtener la media
+SELECT
+    A1.director, A1.DIR_COM/A2.DIR_COM2 AS result
+FROM
+    A1, A2
+ORDER BY
+    result
+)
+SELECT * FROM A3;
